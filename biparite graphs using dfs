@@ -1,0 +1,52 @@
+maxn=100009
+graph=[]
+visited=[]
+def ini():
+    global maxn,graph,visited
+    graph=[[] for i in range(maxn)]
+    visited=[0]*maxn
+  
+    
+def isReachable(A, B):
+    global graph,visited
+      
+    for i in range(A):
+        if visited[i]==0:
+            visited[i]= 1
+            if(mark(i)==0):
+               return 0 
+    return 1        
+        
+        
+def mark(i):
+    global graph,visited
+    
+    for E in graph[i]:
+        
+        if visited[i]==visited[E]:
+           return 0
+        if not visited[E]:   
+           visited[E]= (visited[i]%2) + 1
+           if not mark (E):
+               return 0
+        
+        
+    
+    return 1    
+        
+        
+    
+
+class Solution:
+    # @param A : integer
+    # @param B : list of list of integers
+    # @return an integer
+    def solve(self, A, B):
+        
+        global visited,maxn,graph
+        ini()
+        for edge in B:
+            graph[edge[0]].append(edge[1])        
+            graph[edge[1]].append(edge[0]) 
+        return isReachable(A,B)
+            
